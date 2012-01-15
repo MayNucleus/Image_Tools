@@ -1,21 +1,19 @@
 <?php
 /**
+ * This file is part of the ImageProcessingTools package
+ *
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
  * @copyright Marina Lagun
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
- * @link      Utils.php
+ * @link      Watermark.php
  */
 
 namespace Img\Tools;
+
 use Img\Tools\ImageTool;
 use Img\Tools\Utils;
-
-// watermark horizontal position
-define('HORIZONTAL_POSITION', 0);
-// watermark vertical position
-define('VERTICAL_POSITION', 90);
 
 /**
  * Watermark class creates watermarks from image file or string. Allowed is to set
@@ -27,11 +25,11 @@ define('VERTICAL_POSITION', 90);
  * @author   Marina Lagun <mari.lagun@gmail.com>
  * @license  http://www.gnu.org/copyleft/gpl.html Freely available under GPL
  * @version  0.1
- * @link     Thumbnail
+ * @link     Watermark
  * @since    0.1
  */
-class Watermark extends ImageTool
-{
+class Watermark extends ImageTool {
+
     /**
      * List of $options array available options:
      * <pre>
@@ -43,34 +41,29 @@ class Watermark extends ImageTool
      * h_offset     int    horizontal offset from the image's bottom right corner
      * v_offset     int    horizontal offset from the image's bottom right corner
      * angle        const  possible values: 0 and 90 degrees.
-	 * </pre>
-	 *
-	 * @var    array contains options, which will be used for watermark creation
-	 * @access protected
-	 */
+     * </pre>
+     *
+     * @var    array contains options, which will be used for watermark creation
+     * @access protected
+     */
     protected $options = array(
-                'stamp'        => 'Left blank',
-                'color'        => '000000',
-                'h_offset'     => 10,
-                'v_offset'     => 10,
-                'angle'        => HORIZONTAL_POSITION,
-                'transparency' => 50);
+        'h_offset'     => 10,
+        'v_offset'     => 10,
+        'angle'        => 0,
+        'transparency' => 50);
 
     /**
-	 * Includes allowed options data types
-	 *
-	 * @var    array options data types
-	 * @access protected
-	 */
+     * Includes allowed options data types
+     *
+     * @var    array options data types
+     * @access protected
+     */
     protected $availableOptions = array(
-                'stamp'        => 'mixed',
-                'font'         => 'string',
-                'font_size'    => 'unsigned int',
-                'color'        => 'string',
-                'transparency' => 'unsigned int',
-                'h_offset'     => 'unsigned int',
-                'v_offset'     => 'unsigned int',
-                'angle'        => 'unsigned int');
+        'stamp'        => 'mixed',
+        'transparency' => 'unsigned int',
+        'h_offset'     => 'unsigned int',
+        'v_offset'     => 'unsigned int',
+        'angle'        => 'unsigned int');
 
     /**
      * Property contains watermark's gd resource
@@ -86,52 +79,12 @@ class Watermark extends ImageTool
      * @param  resource $img image's resource
      * @return resource
      */
-    public function manipulate($img)
-    {
+    public function manipulate($img) {
         // prepare stamp
-        if (is_string($this->options['stamp'])) {
-            if ($this->options['angle'] != HORIZONTAL_POSITION
-                || $this->options['angle'] != VERTICAL_POSITION) {
-                throw new \UnexpectedValueException('Wrong angle!');
-            }
+        $this->stamp = $this->createImage($this->options['stamp']);
 
-            if (!is_readable($this->options['font'])) {
-                throw new \Exception('Could not read font file');
-            }
-
-            $stamp = html_entity_decode($this->options['stamp'], ENT_QUOTES, UTF-8);
-
-            $textBox = imagettfbbox($this->options['font_size'], $this->options['angle'],
-                                    $this->options['font'], $stamp);
-            if ($textBox) {
-                $width = abs($textBox[4] + $textBox[0]);
-                $height = abs($textBox[3] + $textBox[1]);
-
-                // lower left corner
-                $x = abs($textBox[0]);
-                $y = $height - abs($textBox[1]);
-
-                if (function_exists('imagecreatetruecolor')) {
-                    $this->stamp = imagecreatetruecolor($width, $height);
-                } else {
-                    $this->stamp = imagecreate($width, $height);
-                }
-
-                $bg = imagecolorallocate($this->stamp, 255, 255, 255);
-                imagecolortransparent($this->stamp, $bg);
-
-                $rgb = Utils::hexToRGB($this->options['color']);
-                $color = imagecolorallocate($this->stamp, $rgb['r'], $rgb['g'], $rgb['b']);
-
-                imagettftext($this->stamp, $this->options['font_size'], $this->options['angle'],
-                             $x, $y, $color, $this->options['font'], $stamp);
-            }
-        } else {
-            $this->stamp = $this->createImage($this->options['stamp']);
-
-            $width = imagesx($this->stamp);
-            $height = imagesy($this->stamp);
-        }
+        $width = imagesx($this->stamp);
+        $height = imagesy($this->stamp);
 
         $img_x = imagesx($img);
         $img_y = imagesy($img);
@@ -143,4 +96,5 @@ class Watermark extends ImageTool
 
         return $img;
     }
+
 }

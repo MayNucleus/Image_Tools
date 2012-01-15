@@ -28,6 +28,7 @@ class Utils
  	 * Method converts hexademical value in a RGB array.
  	 *
  	 * @param string $hex hexademical value in string
+     * @return array
  	 */
  	public static function hexToRGB($hex)
  	{

@@ -1,13 +1,13 @@
 <?php
 /**
- * This file contains Crop class
+ * This file is part of the ImageProcessingTools package
  *
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
  * @copyright 2011, Marina Lagun <mari.lagun@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
- * @link      Thumbnail.php
+ * @link      Crop.php
  */
 
 namespace Img\Tools;

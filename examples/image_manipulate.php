@@ -20,33 +20,34 @@ require_once 'autoload_classes.php';
 $img      =  'pics/lighthouse.jpg';
 // thumbnail's save path
 $savepath = 'pics/thumbnail.png';
-// options required for manipulating image
-$options = array('width' => 300,
-                 'height' => 300,
-                 'number'    => 2,         // number of lines
+// options for image resizing
+$thumb = array('width'    => 300,
+                 'height' => 300);
+// options for drawing borders
+$borders = array('number'    => 2,         // number of lines
                  'thickness' => 1,         // border thickness
-                 'margin'    => 5,        // margins from image borders
+                 'margin'    => 5,         // margins from image borders
                  'space'     => 2,         // space between border lines
                  'color'     => 'FFFFFF'); // border color
-
+// options for adding watermark
+$watermark = array('stamp'        => 'pics/copyright.jpg', // watermark image
+                   'transparency' => 25,                   // watermark transparency
+                   'h_offset'     => 300,                  // offset from bottom
+                   'v_offset'     => 300,                  // right corner
+                   'angle'        => 0);                   // horizontal position
 try {
     // initialize Image class and necessary tool, in this case class Resize.
-    $thumbnail = new Image(new Resize(), $options);
-    // set image you want to resize
-    $thumbnail->setImage($img);
+    $thumbnail = new Image(new Resize(), $thumb);
     // call manipulate function to get resized image's copy
-    $thumbnail->manipulate();
+    $thumbnail->manipulate($img);
     // now draw borders
-    $thumbnail->setTool(new Border(), $options);
+    $thumbnail->setTool(new Border(), $borders);
+    $thumbnail->manipulate();
+    // now draw watermark on thumbnail
+    $thumbnail->setTool(new Watermark(), $watermark);
     $thumbnail->manipulate();
     // save resized copy in $savepath file
     $thumbnail->save($savepath, IMAGETYPE_PNG);
-    // or send image directly into browser
-    /*if (!headers_sent()) {
-        header("Content-type: image/png");
-        $thumbnail->display(IMAGETYPE_PNG);
-    }
-    */
 } catch (Exception $e) {
     echo $e->getMessage();
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file contains Resize class
+ * This file is part of the ImageProcessingTools package
  *
  * @category  Image
  * @package   ImageProcessingTools

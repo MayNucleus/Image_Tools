@@ -1,5 +1,7 @@
 <?php
 /**
+ * This file is part of the ImageProcessingTools package
+ *
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
@@ -94,7 +96,6 @@ namespace Img\Tools;
  	 * <li>string</li>
  	 * <li>mixed</li>
  	 * </ul>
- 	 *
  	 *
  	 * @access public
  	 * @param  array $options tool's properties
@@ -191,7 +192,6 @@ namespace Img\Tools;
 
  			return $img;
  		}
- 		throw new \InvalidArgumentException('Could not create an image resource from a given input!');
  	}
 
  	/**

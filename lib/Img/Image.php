@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Main file in ImageProcessingTools package
  *
@@ -11,6 +12,7 @@
  */
 
 namespace Img;
+
 use Img\Tools\Thumbnail;
 use Img\Tools\Border;
 use Img\Tools\Watermark;
@@ -29,8 +31,8 @@ use Img\Tools\ImageTool;
  * @link     Image
  * @since    0.1
  */
-class Image
-{
+class Image {
+
     /**
      *
      * Contains object of ImageTools class, which implements image
@@ -62,7 +64,6 @@ class Image
     public function __construct(ImageTool $tool, array $options = array())
     {
         $this->setTool($tool, $options);
-        //$this->tool = $tool;
     }
 
     /**
@@ -85,7 +86,7 @@ class Image
     }
 
     /**
-     * Publish result image into browser
+     * Publish result image into browser or database.
      *
      * it is possible to select image type, by default image's type is png.
      *
@@ -93,16 +94,8 @@ class Image
      * @param  const   $type default: IMAGETYPE_PNG (IMAGETYPE_(GIF|JPEG|WBMP))
      * @return image
      */
-    public function display($type = IMAGETYPE_PNG)
+    public function output($type = IMAGETYPE_PNG)
     {
-
-        //if (headers_sent()) {
-        //	throw new RuntimeException('Could not display image: headers have already been sent!');
-        //}
-
-        //$ctype = image_type_to_mime_type($type);
-        //header('Content-Type:'.$ctype);
-
         switch ($type) {
             case IMAGETYPE_GIF:
                 return imagegif($this->src);
@@ -165,7 +158,6 @@ class Image
                 throw new \UnexpectedValueException('Unknown image extention!');
                 break;
         } //end switch
-        //return false;
     }
 
     /**
@@ -175,13 +167,19 @@ class Image
      * @param  string    $img image file, string or resource
      * @return resource
      */
-    public function manipulate($img)
+    public function manipulate($img = null)
     {
-        if (! $this->setImage($img)) {
-            throw new \Exception("Could not create image resource from given file!");
+        if (!empty($img)) {
+            if (!$this->setImage($img)) {
+                throw new \Exception("Could not create image resource from given data!");
+            }
         }
 
         $this->src = $this->tool->manipulate($this->src);
+
+        if (!is_resource($this->src)) {
+            throw new \Exception("An error occured during image processing!");
+        }
 
         return $this->src;
     }
@@ -215,6 +213,7 @@ class Image
     public function setImage($img)
     {
         $this->src = $this->tool->createImage($img);
+
         if (!$this->src) {
             return false;
         }
@@ -223,12 +222,36 @@ class Image
     }
 
     /**
-     * Method return current image resource.
+     * Method returns current images width on success or false otherwise.
      *
-     * @return resource
+     * @return boolean/int
+     */
+    public function getWidth()
+    {
+
+        return imagesx($this->src);
+    }
+
+    /**
+     * Method returns current images height on success or false otherwise.
+     *
+     * @return boolean/int
+     */
+    public function getHeight()
+    {
+
+        return imagesy($this->src);
+    }
+
+    /**
+     * Method returns current images resource or null.
+     *
+     * @return null/resource
      */
     public function getResource()
     {
+
         return $this->src;
     }
+
 }

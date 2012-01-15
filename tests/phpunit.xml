@@ -4,9 +4,9 @@
         <directory>./</directory>
     </testsuite>
 
-    <filter>
+  <filter>
         <whitelist>
-            <directory suffix=".php">../lib/</directory>
+            <directory suffix=".php">../</directory>
         </whitelist>
     </filter>
 </phpunit>

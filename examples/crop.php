@@ -25,20 +25,14 @@ $options = array('x' => 0,         // cropping area upper left corner
                  'height' => 100); // cropping area height
 
 try {
-    // initialize Image class and necessary tool, in this case class Resize.
+    // initialize Image class and necessary tool, in this case class Crop.
     $thumbnail = new Image(new Crop(), $options);
     // set image you want to resize
     $thumbnail->setImage($img);
-    // call manipulate function to get resized image's copy
+    // call manipulate function to get cropped image's copy
     $thumbnail->manipulate();
-    // save resized copy in $savepath file
+    // save cropped copy in $savepath file
     $thumbnail->save($savepath, IMAGETYPE_PNG);
-    // or send image directly into browser
-    /*if (!headers_sent()) {
-        header("Content-type: image/png");
-        $thumbnail->display(IMAGETYPE_PNG);
-    }
-    */
 } catch (UnexpectedValueException $e) {
     echo $e->getMessage();
 } catch (DomainException $e) {
