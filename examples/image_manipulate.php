@@ -32,8 +32,8 @@ $borders = array('number'    => 2,         // number of lines
 // options for adding watermark
 $watermark = array('stamp'        => 'pics/copyright.jpg', // watermark image
                    'transparency' => 25,                   // watermark transparency
-                   'h_offset'     => 300,                  // offset from bottom
-                   'v_offset'     => 300,                  // right corner
+                   'h_offset'     => 50,                  // offset from bottom
+                   'v_offset'     => 50,                  // right corner
                    'angle'        => 0);                   // horizontal position
 try {
     // initialize Image class and necessary tool, in this case class Resize.

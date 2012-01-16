@@ -1,12 +1,11 @@
-<phpunit colors="true"
-         bootstrap="bootstrap.php" >
+<phpunit colors="true" bootstrap="./bootstrap.php" >
     <testsuite name="Unit test suite">
-        <directory>./</directory>
+        <directory>./Img/</directory>
     </testsuite>
 
-  <filter>
+    <filter>
         <whitelist>
-            <directory suffix=".php">../</directory>
+            <directory>../lib/Img</directory>
         </whitelist>
     </filter>
 </phpunit>

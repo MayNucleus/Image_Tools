@@ -112,10 +112,6 @@ class Resize extends ImageTool
                     $this->options['width'], $this->options['height'], $imgWidth, $imgHeight);
         }
 
-		if (!$result) {
-			throw new \Exception('Could not resize image!');
-		}
-
 		imagedestroy($img);
 		return $this->resultImage;
 	}

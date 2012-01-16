@@ -11,6 +11,7 @@ use Img\Tools\Write;
 
 error_reporting(E_ALL | E_STRICT);
 
+define('EXAMPLES_PATH', $_SERVER['DOCUMENT_ROOT'].'examples/');
 // autoload function
 require_once 'autoload_classes.php';
 
@@ -22,9 +23,9 @@ $savepath = 'pics/thumbnail.png';
 $options = array('text'         => 'Copyright',
                  'transparency' => 100,
                  'angle'        => 90,  // equivalent to vertical position
-                 'font'         => '/home/may/www/Img/examples/backtobay.ttf',
+                 'font'         => EXAMPLES_PATH.'backtobay.ttf',
                  'font_size'    => 30,
-                 'font_color'   => 'FF0000',
+                 'color'        => 'FF0000',
                  'v_offset'     => 15,  // intendation from the images edge
                  'h_offset'     => 15); // in pixels
 

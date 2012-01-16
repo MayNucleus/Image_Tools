@@ -66,18 +66,29 @@ class Crop extends ImageTool {
      * @return resource
      */
     public function manipulate($img) {
+        $width  = imagesx($img);
+        $height = imagesy($img);
         // cropping area upper left corner
-        $imgX = $this->options['x'];
-        $imgY = $this->options['y'];
+        $imgX = $this->options['x'] < $width  ? $this->options['x'] : $width - 1;
+        $imgY = $this->options['y'] < $height ? $this->options['y'] : $height - 1;
 
-        $imgWidth  = $this->options['width']  ? : imagesx($img);
-        $imgHeight = $this->options['height'] ? : imagesy($img);
+        $imgWidth  = $this->options['width'] <= $width ? $this->options['width'] : $width;
+        $imgHeight = $this->options['height'] <= $height ? $this->options['height'] : $height;
 
+        $checkWidth = $imgX + $imgWidth;
+        if ($checkWidth > $width) {
+            $imgWidth = $width - $imgX;
+        }
+
+        $checkHeight = $imgY + $imgHeight;
+        if ($checkHeight > $height) {
+            $imgHeight = $height - $imgY;
+        }
         // create a target image
         if (function_exists('imagecreatetruecolor')) {
-            $this->resultImage = imagecreatetruecolor($this->options['width'], $this->options['height']);
+            $this->resultImage = imagecreatetruecolor($imgWidth, $imgHeight);
         } else {
-            $this->resultImage = imagecreate($this->options['width'], $this->options['height']);
+            $this->resultImage = imagecreate($imgWidth, $imgHeight);
         }
 
         // enable transparency if supported
@@ -87,13 +98,8 @@ class Crop extends ImageTool {
         }
 
         // get resultImage
-
         $result = imagecopy($this->resultImage, $img, 0, 0, $imgX, $imgY,
                             $imgWidth, $imgHeight);
-
-        if (!$result) {
-            throw new \Exception('Could not create thumbnail!');
-        }
 
         imagedestroy($img);
         return $this->resultImage;
