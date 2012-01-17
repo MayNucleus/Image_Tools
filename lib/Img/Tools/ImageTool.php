@@ -177,7 +177,7 @@ namespace Img\Tools;
  	 */
  	public function createImage($img)
  	{
- 		if (is_file($img)) {
+ 		if (@is_file($img)) {
 
  			return $this->createImageFromFile($img);
 

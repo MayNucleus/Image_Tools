@@ -59,7 +59,7 @@ class Watermark extends ImageTool {
      * @access protected
      */
     protected $availableOptions = array(
-        'stamp'        => 'mixed',
+        'stamp'        => 'image',
         'transparency' => 'unsigned int',
         'h_offset'     => 'unsigned int',
         'v_offset'     => 'unsigned int',
@@ -83,7 +83,7 @@ class Watermark extends ImageTool {
         // prepare stamp
         $this->stamp = $this->createImage($this->options['stamp']);
 
-        $width = imagesx($this->stamp);
+        $width  = imagesx($this->stamp);
         $height = imagesy($this->stamp);
 
         $img_x = imagesx($img);

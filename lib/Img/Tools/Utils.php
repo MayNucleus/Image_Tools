@@ -32,6 +32,10 @@ class Utils
  	 */
  	public static function hexToRGB($hex)
  	{
+        if (preg_match('/^(0x)|(x)/i', $hex, $match)) {
+            $hex = substr($hex, count($match));
+        }
+
  	    return array('r' => hexdec(substr($hex, 0, 2)),
  	                 'g' => hexdec(substr($hex, 2, 2)),
  	                 'b' => hexdec(substr($hex, 4, 2)));

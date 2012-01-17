@@ -1,0 +1,26 @@
+
+
+Code Coverage Report 
+  2012-01-17 04:01:14
+
+ Summary: 
+  Classes: 37.50% (3/8)
+  Methods: 33.33% (7/21)
+  Lines:   74.39% (183/246)
+
+\Img::Image
+  Methods: 100.00% (10/10)   Lines:  55.10% ( 27/ 49)
+\Img\Tools::Border
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% ( 13/ 13)
+\Img\Tools::Crop
+  Methods: 100.00% ( 1/ 1)   Lines:  96.15% ( 25/ 26)
+\Img\Tools::ImageTool
+  Methods:  83.33% ( 5/ 6)   Lines:  63.64% ( 49/ 77)
+\Img\Tools::Resize
+  Methods: 100.00% ( 1/ 1)   Lines:  87.50% ( 28/ 32)
+\Img\Tools::Utils
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  6/  6)
+\Img\Tools::Watermark
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  9/  9)
+\Img\Tools::Write
+  Methods: 100.00% ( 1/ 1)   Lines:  76.47% ( 26/ 34)

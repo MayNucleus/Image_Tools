@@ -17,14 +17,15 @@ class BorderTest extends \PHPUnit_Framework_TestCase
         $this->obj = new Border();
     }
 
-    public function testObjectInstantiation()
-    {
-        $this->assertInstanceOf(__NAMESPACE__.'\Border', new Border());
-    }
-
     public function testDrawBorders()
     {
         $img = $this->obj->manipulate($this->img);
-        $this->assertInternalType('resource', $img);
+        $this->assertEquals('gd', get_resource_type($img));
+    }
+
+    protected function tearDown()
+    {
+        imagedestroy($this->img);
+        unset($this->obj);
     }
 }

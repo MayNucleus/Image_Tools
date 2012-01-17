@@ -50,6 +50,7 @@ class Write extends ImageTool
         'text'         => 'Left blank',
         'angle'        => 0,
         'transparency' => 75,
+        'color'        => 'FFFFFF',
         'font_size'    => 18,
         'h_offset'     => 10,
         'v_offset'     => 10);

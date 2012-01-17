@@ -98,7 +98,7 @@ class Crop extends ImageTool {
         }
 
         // get resultImage
-        $result = imagecopy($this->resultImage, $img, 0, 0, $imgX, $imgY,
+        imagecopy($this->resultImage, $img, 0, 0, $imgX, $imgY,
                             $imgWidth, $imgHeight);
 
         imagedestroy($img);

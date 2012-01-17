@@ -2,87 +2,69 @@
 
 namespace Img;
 
-class ImageTest extends PHPUnit_Framework_TestCase
+use Img\Tools\Resize;
+
+class ImageTest extends \PHPUnit_Framework_TestCase
 {
-    protected $obj = null;
+    protected $obj;
+    protected $temp = 'Img/Fixtures/temp.jpg';
 
     protected function setUp()
     {
         parent::setUp();
-        $this->obj = new Image(new Thumbnail());
+        $this->obj = new Image(new Resize());
     }
 
-    public function testObject()
+    public function testSetOptions()
     {
-        $this->assertTrue(is_object($this->obj));
+        $option = array('width'=>100);
+        $this->assertTrue($this->obj->setOptions($option));
     }
 
-    /**
-     * @dataProvider ImageTypesProvider
-     */
-    public function testCreateImage($img)
+    public function testSetTool()
     {
-        $src = $this->obj->createImage($img);
-        $this->assertTrue(is_resource($src));
+        $this->assertTrue($this->obj->setTool(new Resize()));
     }
 
-    public function ImageTypesProvider()
+    public function testSetImage()
     {
-        $data = 'iVBORw0KGgoAAAANSUhEUgAAABwAAAASCAMAAAB/2U7WAAAABl'
-        .'BMVEUAAAD///+l2Z/dAAAASUlEQVR4XqWQUQoAIAxC2/0vXZDr'
-        .'EX4IJTRkb7lobNUStXsB0jIXIAMSsQnWlsV+wULF4Avk9fLq2r'
-        .'8a5HSE35Q3eO2XP1A1wQkZSgETvDtKdQAAAABJRU5ErkJggg==';
-        $data = base64_decode($data);
+        $this->assertTrue($this->obj->setImage(imagecreate(50,50)));
 
-        return array(array(TEST_PATH.'/Fixtures/fail.png'),
-        array(TEST_PATH.'/Fixtures/ng.com.jpg'),
-        array(TEST_PATH.'/Fixtures/eclipse.gif'),
-        array(TEST_PATH.'/Fixtures/Baboon.wbmp'),
-        array($data));
     }
 
-    /**
-     * @dataProvider savePathesProvider
-     */
-    public function testSave($savepath, $type)
+    public function testImageParameters()
     {
-        $img = TEST_PATH.'/Fixtures/ng.com.jpg';
-        $this->obj->createImage($img);
-        $this->obj->save($savepath, $type);
-        $this->assertFileExists($savepath);
+        $this->obj->setImage(imagecreate(50,50));
+        $this->assertEquals('gd', get_resource_type($this->obj->getResource()));
+        $this->assertEquals(50, $this->obj->getWidth());
+        $this->assertEquals(50, $this->obj->getHeight());
     }
 
-    public function savePathesProvider()
+    public function testSave()
     {
-        $dir = TEST_PATH.'/Fixtures/';
-        return array(array($dir.'ng.png', IMAGETYPE_PNG),
-                     array($dir.'ng.jpg', IMAGETYPE_JPEG),
-                     array($dir.'ng.gif', IMAGETYPE_GIF),
-                     array($dir.'ng.bmp', IMAGETYPE_WBMP));
+        $img = 'Img/Fixtures/lighthouse.jpg';
+        $this->obj->setImage($img);
+        $this->obj->save($this->temp, IMAGETYPE_JPEG);
+        $this->assertFileExists($this->temp);
     }
 
-
-   /* public function testDisplay($type)
+    public function testDisplay()
     {
-        $img = TEST_PATH.'/Fixtures/ng.com.jpg';
-        $this->obj->createImage($img);
-        $src = $this->obj->display($type);
-        $this->assertInternalType('resource', $src);
+        $this->obj->setImage('Img/Fixtures/lighthouse.jpg');
+        $this->assertTrue($this->obj->output());
     }
 
-    public function imageExtensionsProvider()
-    {
-        return array(array(IMAGETYPE_PNG),
-                     array(IMAGETYPE_JPEG),
-                     array(IMAGETYPE_GIF),
-                     array(IMAGETYPE_WBMP));
-    }
-*/
     public function testManipulate()
     {
-        $img = TEST_PATH.'/Fixtures/ng.com.jpg';
-        $this->obj->createImage($img);
-        $src = $this->obj->manipulate();
-        $this->assertInternalType('resource', $src);
+        $img = 'Img/Fixtures/lighthouse.jpg';
+        $src = $this->obj->manipulate($img);
+        $this->assertEquals('gd', get_resource_type($src));
+    }
+
+    protected function tearDown()
+    {
+        if (file_exists($this->temp)) {
+            unlink($this->temp);
+        }
     }
 }
