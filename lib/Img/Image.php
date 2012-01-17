@@ -1,12 +1,11 @@
 <?php
-
 /**
  * Main file in ImageProcessingTools package
  *
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
- * @copyright Marina Lagun 2011
+ * @copyright 2012, Marina Lagun
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
  * @link      Image.php
  */
@@ -114,7 +113,7 @@ class Image {
                 break;
 
             default:
-                throw new \UnexpectedValueException('Unknown image extention!');
+                throw new \DomainException('Unknown image extention!');
                 break;
         } //end switch
     }
@@ -155,7 +154,7 @@ class Image {
                 break;
 
             default:
-                throw new \UnexpectedValueException('Unknown image extention!');
+                throw new \DomainException('Unknown image extention!');
                 break;
         } //end switch
     }

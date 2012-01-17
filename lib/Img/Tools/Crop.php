@@ -5,7 +5,7 @@
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
- * @copyright 2011, Marina Lagun <mari.lagun@gmail.com>
+ * @copyright 2012, Marina Lagun
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
  * @link      Crop.php
  */
@@ -84,6 +84,7 @@ class Crop extends ImageTool {
         if ($checkHeight > $height) {
             $imgHeight = $height - $imgY;
         }
+
         // create a target image
         if (function_exists('imagecreatetruecolor')) {
             $this->resultImage = imagecreatetruecolor($imgWidth, $imgHeight);

@@ -1,4 +1,8 @@
 <?php
+/*
+ * Part of ImageProcessingTools.
+ */
+
 namespace Img\Tools;
 
 class ImageToolTest extends \PHPUnit_Framework_TestCase

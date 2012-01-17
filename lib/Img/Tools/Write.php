@@ -5,7 +5,7 @@
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
- * @copyright Marina Lagun
+ * @copyright 2012, Marina Lagun
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
  * @link      Write.php
  */

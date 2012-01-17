@@ -1,4 +1,7 @@
 <?php
+/*
+ * Part of ImageProcessingTools.
+ */
 
 namespace Img;
 
@@ -48,10 +51,30 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         $this->assertFileExists($this->temp);
     }
 
-    public function testDisplay()
+    public function testSaveDomainException()
+    {
+        try{
+            $this->obj->save('JPEG');
+        } catch (\DomainException $e) {
+            return;
+        }
+        $this->fail('DomainException expected!');
+    }
+
+    public function testOutput()
     {
         $this->obj->setImage('Img/Fixtures/lighthouse.jpg');
         $this->assertTrue($this->obj->output());
+    }
+
+    public function testOutputWrongImageType()
+    {
+        try {
+            $this->obj->output('JPEG');
+        } catch (\DomainException $e) {
+            return;
+        }
+        $this->fail('DomainException expected!');
     }
 
     public function testManipulate()

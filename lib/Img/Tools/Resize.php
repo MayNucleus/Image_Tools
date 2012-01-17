@@ -5,9 +5,9 @@
  * @category  Image
  * @package   ImageProcessingTools
  * @author    Marina Lagun <mari.lagun@gmail.com>
- * @copyright 2011, Marina Lagun <mari.lagun@gmail.com>
+ * @copyright 2012, Marina Lagun
  * @license   http://www.gnu.org/copyleft/gpl.html Freely available under GPL
- * @link      Thumbnail.php
+ * @link      Resize.php
  */
 
 namespace Img\Tools;
